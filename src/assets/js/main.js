@@ -228,6 +228,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             updateTexts();
         });
 
+        // Prevent wheel spin when clicking on language selector
+        const languageSelectorContainer = document.querySelector('.language-selector-container');
+        languageSelectorContainer?.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
         updateTexts();
     } catch (error) {
         console.error('Failed to initialize the game:', error);

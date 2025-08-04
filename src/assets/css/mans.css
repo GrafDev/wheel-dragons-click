@@ -45,10 +45,14 @@
     transform: translateX(-50%) translateY(-5px);
 }
 
-/* Prevent overlap with button */
+/* Prevent overlap with button - hide man-03 and lower wheel on short screens */
 @media (max-height: 700px) {
     .mans {
         opacity: 0.85;
+    }
+    
+    .man-03 {
+        display: none !important;
     }
 }
 /* Mobile phones - portrait orientation */
