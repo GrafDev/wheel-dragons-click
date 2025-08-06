@@ -4,12 +4,25 @@ import {Animations1} from './animations1.js';
 import {SpriteManager} from './sprite-manager.js';
 import {FireSpriteManager} from './fire-sprite-manager.js';
 import {DragonAnimations} from './dragon-animations.js';
+import {gameConfig} from './config.js';
+import {getImagePath} from './images.js';
 
 import buttonSpin from '../images/button_spin.png';
 import buttonSpinHover from '../images/button_spin_hover.png';
 
 export class Game1 {
     constructor() {
+        const urlSettings = this.getSettingsFromURL();
+        this.gameMode = urlSettings.mode;
+        this.country = urlSettings.country;
+        this.config = gameConfig[this.country][this.gameMode];
+        
+        console.log('Game1 configuration:', {
+            gameMode: this.gameMode,
+            country: this.country,
+            config: this.config,
+            winTexts: this.config?.spins
+        });
         this.wheelElement = document.querySelector('.wheel-image');
         this.spinButton = document.getElementById('spin-button');
         this.defaultButtonSrc = buttonSpin;
@@ -161,7 +174,8 @@ export class Game1 {
 
     updateCounterText() {
         if (this.counterTextElement) {
-            const remainingSpins = 2 - gameState.spinCount;
+            const totalSpins = this.gameMode === 'auto' ? 1 : 2;
+            const remainingSpins = totalSpins - gameState.spinCount;
             this.counterTextElement.textContent = remainingSpins > 0 ? remainingSpins : 0;
         }
     }
@@ -202,7 +216,8 @@ export class Game1 {
         }
 
         const currentRotation = gsap.getProperty(this.wheelElement, "rotation") || 0;
-        const spinPromise = Animations1.wheelSpin(this.wheelElement, currentRotation, gameState.spinCount);
+        const effectiveSpinCount = this.gameMode === 'auto' ? 2 : gameState.spinCount;
+        const spinPromise = Animations1.wheelSpin(this.wheelElement, currentRotation, effectiveSpinCount);
 
         let spinHandled = false;
 
@@ -212,7 +227,8 @@ export class Game1 {
 
             gameState.isSpinning = false;
 
-            if (gameState.spinCount === 2) {
+            const totalSpins = this.gameMode === 'auto' ? 1 : 2;
+            if (gameState.spinCount === totalSpins) {
                 gameState.buttonBlocked = true;
             }
 
@@ -224,25 +240,56 @@ export class Game1 {
                 DragonAnimations.startDragonsPulsation(dragonsElement);
             }
 
-            if (gameState.spinCount === 1) {
-                this.showWinText('100FS');
-                setTimeout(() => {
-                    gameState.buttonBlocked = false;
-                    this.spinButton.src = this.defaultButtonSrc;
-                    this.startButtonShake();
-                }, 1000);
-            } else if (gameState.spinCount === 2) {
-                this.showWinText('300%');
+            if (this.gameMode === 'auto') {
+                const winText = this.config.spins.first.winText;
+                if (winText.includes('<span')) {
+                    this.winTextElement.innerHTML = winText;
+                } else {
+                    this.showWinText(winText);
+                }
                 setTimeout(() => {
                     this.spriteManager.stop();
                     Animations1.showModal(this.modal);
                 }, 1500);
+            } else {
+                if (gameState.spinCount === 1) {
+                    this.showWinText(this.config.spins.first.winText);
+                    setTimeout(() => {
+                        gameState.buttonBlocked = false;
+                        this.spinButton.src = this.defaultButtonSrc;
+                        this.startButtonShake();
+                    }, 1000);
+                } else if (gameState.spinCount === 2) {
+                    this.showWinText(this.config.spins.second.winText);
+                    setTimeout(() => {
+                        this.spriteManager.stop();
+                        Animations1.showModal(this.modal);
+                    }, 1500);
+                }
             }
         });
 
         return spinPromise;
     }
 
+
+    getSettingsFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        
+        const mode = params.get('mode') || import.meta.env.VITE_GAME_MODE || 'button';
+        const country = params.get('country') || import.meta.env.VITE_COUNTRY || 'standard';
+        
+        console.log('Game1 Settings detection:', {
+            urlMode: params.get('mode'),
+            urlCountry: params.get('country'),
+            envMode: import.meta.env.VITE_GAME_MODE,
+            envCountry: import.meta.env.VITE_COUNTRY,
+            finalMode: mode,
+            finalCountry: country
+        });
+        
+        return { mode, country };
+    }
 }
 
 

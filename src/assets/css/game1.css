@@ -1,6 +1,3 @@
-:root {
-    --win-text-size: calc(var(--wheel-section-size) * 0.08);
-}
 
 .wheel-section {
     position: fixed;
@@ -188,4 +185,29 @@
 
 .glow {
     animation: glowEffect 1.5s infinite alternate;
+}
+
+.game-mode-auto .spin-button-image {
+    display: none !important;
+}
+
+/* Text size variants for win text */
+.win-text .big-text {
+    font-size: calc(var(--win-text-size) * 0.7);
+    display: block;
+    line-height: 1;
+}
+
+.win-text .small-text {
+    font-size: calc(var(--win-text-size) * 0.5);
+    display: block;
+    line-height: 1;
+    margin-top: 0.2em;
+}
+
+.win-text .plus-text {
+    font-size: calc(var(--win-text-size) * 0.6);
+    display: block;
+    line-height: 1;
+    margin: 0.1em 0;
 }

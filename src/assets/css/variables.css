@@ -13,7 +13,7 @@
     --logo-max-width: 40%;
 
     --sprite-frame-size: calc(var(--wheel-section-size) * 0.63);
-    --win-text-size: calc(var(--wheel-section-size) * 0.08);
+    --win-text-size: calc(var(--wheel-section-size) * 0.06);
 
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;

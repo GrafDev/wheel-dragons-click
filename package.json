@@ -6,7 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:all": "npm run build:button && npm run build:auto && npm run build:button-canada && npm run build:auto-canada",
+    "deploy:all": "npm run build:all && firebase deploy",
+    "build:button": "vite build --mode button",
+    "build:auto": "vite build --mode auto",
+    "build:button-canada": "vite build --mode button-canada",
+    "build:auto-canada": "vite build --mode auto-canada"
   },
   "devDependencies": {
     "vite": "^6.0.11"

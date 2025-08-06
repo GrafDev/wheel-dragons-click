@@ -6,6 +6,9 @@ import { Animations1 } from './animations1.js';
 import { DragonAnimations } from './dragon-animations.js';
 import { FireSpriteManager } from './fire-sprite-manager.js';
 import { initializeApp } from 'firebase/app';
+import { gameConfig } from './config.js';
+import { DevPanel } from './dev-panel.js';
+import { getImagePath } from './images.js';
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -151,6 +154,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', setIOSLandscapeVh);
     window.addEventListener('orientationchange', setIOSLandscapeVh);
 
+    const urlSettings = DevPanel.getSettingsFromURL();
+    const gameMode = urlSettings.mode;
+    const country = urlSettings.country;
+    const config = gameConfig[country][gameMode];
+    
     const images = [
         new URL('/src/assets/images/logo01.png', import.meta.url).href,
         new URL('/src/assets/images/logo01-00.png', import.meta.url).href,
@@ -158,12 +166,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         new URL('/src/assets/images/logo02_dragons.png', import.meta.url).href,
         new URL('/src/assets/images/arrow.png', import.meta.url).href,
         new URL('/src/assets/images/wheel.png', import.meta.url).href,
+        getImagePath(config.wheelText),
         new URL('/src/assets/images/button_spin.png', import.meta.url).href,
         new URL('/src/assets/images/button_spin_hover.png', import.meta.url).href,
         new URL('/src/assets/images/sector.png', import.meta.url).href,
         new URL('/src/assets/images/counter.png', import.meta.url).href,
         new URL('/src/assets/images/globs.png', import.meta.url).href,
-        new URL('/src/assets/images/modal_bg.png', import.meta.url).href,
+        getImagePath(config.modalBg),
         new URL('/src/assets/images/modal_button_bg.png', import.meta.url).href,
         new URL('/src/assets/images/bg_desktop.png', import.meta.url).href,
         new URL('/src/assets/images/bg_mobile.png', import.meta.url).href,
@@ -207,9 +216,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
+        document.body.classList.add(`game-mode-${gameMode}`);
+        document.body.setAttribute('data-country', country);
+        
+        const wheelTextImage = document.getElementById('wheel-text-image');
+        if (wheelTextImage && config.wheelText) {
+            wheelTextImage.src = getImagePath(config.wheelText);
+        }
+
         const counterTextElement = document.querySelector('.counter-text');
         if (counterTextElement) {
-            counterTextElement.textContent = '2';
+            counterTextElement.textContent = gameMode === 'auto' ? '1' : '2';
             counterTextElement.classList.remove('content-hidden');
         }
 
@@ -221,6 +238,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const spinButton = document.getElementById('spin-button');
         const languageSelector = document.getElementById('language-selector');
+
+        if (gameMode === 'auto') {
+            setTimeout(() => {
+                game1.spin();
+            }, config.autoSpinDelay);
+        }
 
         spinButton?.addEventListener('click', () => game1.spin());
         languageSelector?.addEventListener('change', (e) => {
@@ -235,6 +258,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         updateTexts();
+        
+        if (import.meta.env.DEV || import.meta.env.MODE === 'development') {
+            new DevPanel();
+        }
     } catch (error) {
         console.error('Failed to initialize the game:', error);
     }
