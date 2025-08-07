@@ -160,25 +160,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     const config = gameConfig[country][gameMode];
     
     const images = [
-        new URL('/src/assets/images/logo01.png', import.meta.url).href,
-        new URL('/src/assets/images/logo01-00.png', import.meta.url).href,
-        new URL('/src/assets/images/logo02.png', import.meta.url).href,
-        new URL('/src/assets/images/logo02_dragons.png', import.meta.url).href,
-        new URL('/src/assets/images/arrow.png', import.meta.url).href,
-        new URL('/src/assets/images/wheel.png', import.meta.url).href,
+        new URL('../images/logo01.png', import.meta.url).href,
+        new URL('../images/logo01-00.png', import.meta.url).href,
+        new URL('../images/logo02.png', import.meta.url).href,
+        new URL('../images/logo02_dragons.png', import.meta.url).href,
+        new URL('../images/arrow.png', import.meta.url).href,
+        new URL('../images/wheel.png', import.meta.url).href,
         getImagePath(config.wheelText),
-        new URL('/src/assets/images/button_spin.png', import.meta.url).href,
-        new URL('/src/assets/images/button_spin_hover.png', import.meta.url).href,
-        new URL('/src/assets/images/sector.png', import.meta.url).href,
-        new URL('/src/assets/images/counter.png', import.meta.url).href,
-        new URL('/src/assets/images/globs.png', import.meta.url).href,
+        new URL('../images/button_spin.png', import.meta.url).href,
+        new URL('../images/button_spin_hover.png', import.meta.url).href,
+        new URL('../images/sector.png', import.meta.url).href,
+        new URL('../images/counter.png', import.meta.url).href,
+        new URL('../images/globs.png', import.meta.url).href,
         getImagePath(config.modalBg),
-        new URL('/src/assets/images/modal_button_bg.png', import.meta.url).href,
-        new URL('/src/assets/images/bg_desktop.png', import.meta.url).href,
-        new URL('/src/assets/images/bg_mobile.png', import.meta.url).href,
-        new URL('/src/assets/images/man.png', import.meta.url).href,
-        new URL('/src/assets/sprites/wheel-light/sprite_light_sheet.png', import.meta.url).href,
-        new URL('/src/assets/sprites/fire/sprite_sheet.png', import.meta.url).href
+        new URL('../images/modal_button_bg.png', import.meta.url).href,
+        new URL('../images/bg_desktop.png', import.meta.url).href,
+        new URL('../images/bg_mobile.png', import.meta.url).href,
+        new URL('../images/man.png', import.meta.url).href,
+        new URL('../sprites/wheel-light/sprite_light_sheet.png', import.meta.url).href,
+        new URL('../sprites/fire/sprite_sheet.png', import.meta.url).href
     ];
 
     try {
