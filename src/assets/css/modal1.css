@@ -62,7 +62,7 @@
 }
 
 .modal-content {
-    background: url('../images/modal_bg.png') no-repeat center center;
+    background: url('../images/modal_bg.webp') no-repeat center center;
     background-size: contain;
     padding: var(--spacing-lg);
     text-align: center;
@@ -93,11 +93,11 @@
 
 /* Enhanced modal button styles */
 .modal-button {
-    background: url('../images/modal_button_bg.png') no-repeat center center;
+    background: url('../images/modal_button_bg.webp') no-repeat center center;
     background-size: contain;
     border: none;
     position: absolute;
-    bottom: 10%;
+    bottom: 6%;
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
@@ -218,28 +218,28 @@
 
 /* Country and mode specific modal backgrounds */
 body .modal-content {
-    background-image: url('../images/modal_bg.png');
+    background-image: url('../images/modal_bg.webp');
 }
 
 body.game-mode-button .modal-content {
-    background-image: url('../images/modal_bg.png');
+    background-image: url('../images/modal_bg.webp');
 }
 
 body.game-mode-auto .modal-content {
-    background-image: url('../images/modal_bg.png');
+    background-image: url('../images/modal_bg.webp');
 }
 
 /* Canada specific backgrounds */
 body[data-country="canada"] .modal-content {
-    background-image: url('../images/modal_bg-canada-button.png');
+    background-image: url('../images/modal_bg-canada.webp');
 }
 
 body[data-country="canada"].game-mode-button .modal-content {
-    background-image: url('../images/modal_bg-canada-button.png');
+    background-image: url('../images/modal_bg-canada.webp');
 }
 
 body[data-country="canada"].game-mode-auto .modal-content {
-    background-image: url('../images/modal_bg-canada-auto.png');
+    background-image: url('../images/modal_bg-canada.webp');
 }
 
 /* 4K screens (2391px+) - increase modal by 30% */

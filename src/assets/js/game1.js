@@ -8,7 +8,7 @@ import {gameConfig} from './config.js';
 import {getImagePath} from './images.js';
 
 import buttonSpin from '../images/button_spin.png';
-import buttonSpinHover from '../images/button_spin_hover.png';
+import buttonSpinHover from '../images/button_spin_hover.webp';
 
 export class Game1 {
     constructor() {

@@ -10,7 +10,7 @@ export const gameConfig = {
                 }
             },
             wheelText: "text_wheel.png",
-            modalBg: "modal_bg.png"
+            modalBg: "modal_bg.webp"
         },
         
         auto: {
@@ -20,7 +20,7 @@ export const gameConfig = {
                 }
             },
             wheelText: "text_wheel.png",
-            modalBg: "modal_bg.png",
+            modalBg: "modal_bg.webp",
             autoSpinDelay: 1800
         }
     },
@@ -36,17 +36,17 @@ export const gameConfig = {
                 }
             },
             wheelText: "text_wheel-canada.png",
-            modalBg: "modal_bg-canada-button.png"
+            modalBg: "modal_bg-canada.webp"
         },
         
         auto: {
             spins: {
                 first: {
-                    winText: '<span class="big-text">2250CA$</span>\n<span class="plus-text">.</span>'
+                    winText: '<span class="big-text">2250CA$</span>\n<span class="plus-text">+</span>\n<span class="small-text">100FS</span>'
                 }
             },
             wheelText: "text_wheel-canada.png",
-            modalBg: "modal_bg-canada-auto.png",
+            modalBg: "modal_bg-canada.webp",
             autoSpinDelay: 2000
         }
     },

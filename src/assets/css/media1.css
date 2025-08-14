@@ -2,7 +2,7 @@
 
 /* Universal background for all devices */
 body {
-    background-image: url('../images/bg_desktop.png');
+    background-image: url('../images/bg_desktop.webp');
     min-height: 100dvh;
 }
 
