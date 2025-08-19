@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => {
                 mode === 'button' ? 'dist/wheel-dragon-button' : 
                 mode === 'auto-canada' ? 'dist/wheel-dragon-auto-canada' : 
                 mode === 'button-canada' ? 'dist/wheel-dragon-button-canada' : 'dist',
-        assetsDir: 'assets',
+        assetsDir: '',
         cssCodeSplit: true,
         cssMinify: true,
         rollupOptions: {

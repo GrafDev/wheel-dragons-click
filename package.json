@@ -12,7 +12,8 @@
     "build:button": "vite build --mode button",
     "build:auto": "vite build --mode auto",
     "build:button-canada": "vite build --mode button-canada",
-    "build:auto-canada": "vite build --mode auto-canada"
+    "build:auto-canada": "vite build --mode auto-canada",
+    "archive": "npm run build:all && node scripts/build-archive.js button && node scripts/build-archive.js auto && node scripts/build-archive.js button-canada && node scripts/build-archive.js auto-canada && node scripts/client-archive.js"
   },
   "devDependencies": {
     "vite": "^6.0.11"
