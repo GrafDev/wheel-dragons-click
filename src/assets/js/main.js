@@ -158,10 +158,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const gameMode = urlSettings.mode;
     const country = urlSettings.country;
     const config = gameConfig[country][gameMode];
+    const logos = gameConfig.common.logos[country];
     
     const images = [
-        new URL('../images/logo01.png', import.meta.url).href,
-        new URL('../images/logo01-00.png', import.meta.url).href,
+        getImagePath(logos.part1),
+        getImagePath(logos.part2),
         new URL('../images/logo02.webp', import.meta.url).href,
         new URL('../images/logo02_dragons.webp', import.meta.url).href,
         new URL('../images/arrow.png', import.meta.url).href,
@@ -223,6 +224,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (wheelTextImage && config.wheelText) {
             wheelTextImage.src = getImagePath(config.wheelText);
         }
+
+        // Update logo images based on country
+        const logoImages = document.querySelectorAll('.logo01:not(.letters-o)');
+        logoImages.forEach(img => {
+            img.src = getImagePath(logos.part1);
+        });
+
+        const logoLettersImages = document.querySelectorAll('.logo01.letters-o');
+        logoLettersImages.forEach(img => {
+            img.src = getImagePath(logos.part2);
+        });
 
         const counterTextElement = document.querySelector('.counter-text');
         if (counterTextElement) {

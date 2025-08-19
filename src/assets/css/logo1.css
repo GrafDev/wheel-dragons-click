@@ -11,11 +11,45 @@
 .logo01 {
     position: relative;
     width: calc(var(--wheel-section-size) * 0.4);
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .letters-2 {
     animation: logoShine 2s ease-in-out infinite;
 }
+
+/* Standard logo animation */
+[data-country="standard"] .logo01.letters-o {
+    animation: fadeIn 1s ease-in-out forwards, logoShine 2s ease-in-out infinite 1s !important;
+}
+
+/* Canada logo brightness animation */
+[data-country="canada"] .logo01.letters-o {
+    animation: fadeIn 1s ease-in-out forwards, canadaColorChange 1.5s ease-in-out infinite 1s !important;
+}
+
+@keyframes canadaColorChange {
+    0% {
+        filter: brightness(0.9);
+    }
+    50% {
+        filter: brightness(1.1);
+    }
+    100% {
+        filter: brightness(0.9);
+    }
+}
+
 
 /* Mobile devices in portrait orientation (narrow and short) */
 /* Hide desktop logo on mobile, show mobile logo */

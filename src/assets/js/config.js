@@ -52,6 +52,16 @@ export const gameConfig = {
     },
     
     common: {
-        modalWinAmount: "Your Prize!"
+        modalWinAmount: "Your Prize!",
+        logos: {
+            standard: {
+                part1: "logo1-part1.png",
+                part2: "logo1-part2.png"
+            },
+            canada: {
+                part1: "logo1-canada-part1.webp", 
+                part2: "logo1-canada-part2.webp"
+            }
+        }
     }
 };

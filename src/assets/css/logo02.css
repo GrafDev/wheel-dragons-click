@@ -17,4 +17,6 @@
 
 .dragons {
     z-index: 44;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
 }

@@ -9,7 +9,6 @@
     --color-border: #4a5568;
 
     --container-max-width: 1000px;
-    --wheel-section-size: min(70vw, 60vh, 700px);
     --logo-max-width: 40%;
 
     --sprite-frame-size: calc(var(--wheel-section-size) * 0.63);
