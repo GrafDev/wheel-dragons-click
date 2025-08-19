@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:all": "npm run build:button && npm run build:auto && npm run build:button-canada && npm run build:auto-canada",
+    "build:all": "node scripts/increment-version.js && npm run build:button && npm run build:auto && npm run build:button-canada && npm run build:auto-canada",
     "deploy:all": "npm run build:all && firebase deploy",
     "build:button": "vite build --mode button",
     "build:auto": "vite build --mode auto",

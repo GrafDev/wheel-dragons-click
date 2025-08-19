@@ -7,17 +7,6 @@ const versionPath = 'version.js';
 const versionContent = readFileSync(versionPath, 'utf-8');
 const currentVersion = versionContent.match(/VERSION = '([^']+)'/)[1];
 
-// Increment version (patch)
-const versionParts = currentVersion.split('.').map(Number);
-versionParts[2] += 1;
-const newVersion = versionParts.join('.');
-
-console.log(`Updating version from ${currentVersion} to ${newVersion}`);
-
-// Update version.js
-const newVersionContent = `export const VERSION = '${newVersion}';\n`;
-writeFileSync(versionPath, newVersionContent);
-
 // Get project name from command line argument or default to 'button'
 const projectMode = process.argv[2] || 'button';
 const projectDir = `dist/wheel-dragon-${projectMode}`;
@@ -28,10 +17,32 @@ if (!existsSync(projectDir)) {
 }
 
 // Create archive with version in name
-const archiveName = `wheel-dragon-${projectMode}-v${newVersion}.zip`;
+const archiveName = `wheel-dragon-${projectMode}-v${currentVersion}.zip`;
 const archivePath = `dist/${archiveName}`;
 
 console.log(`Creating archive: ${archiveName}`);
+
+// Move old archives to 00_ARCHIVES folder
+const archiveFolder = 'dist/00_ARCHIVES';
+try {
+    // Check if archive folder exists, if not create it
+    if (!existsSync(archiveFolder)) {
+        execSync(`mkdir -p "${archiveFolder}"`);
+    } else {
+        // Clear old archives from 00_ARCHIVES folder
+        execSync(`rm -f "${archiveFolder}"/*.zip`);
+        console.log('Cleared old archives from 00_ARCHIVES folder');
+    }
+    
+    // Move existing archives of same project type to 00_ARCHIVES
+    const existingArchives = execSync(`find dist/ -maxdepth 1 -name "wheel-dragon-${projectMode}-*.zip"`, { encoding: 'utf8' }).trim();
+    if (existingArchives) {
+        execSync(`mv ${existingArchives.split('\n').join(' ')} "${archiveFolder}/" 2>/dev/null || true`);
+        console.log(`Moved old ${projectMode} archives to 00_ARCHIVES`);
+    }
+} catch (error) {
+    console.log('No old archives to move or error moving archives');
+}
 
 try {
     // Create zip archive

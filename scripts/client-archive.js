@@ -15,6 +15,28 @@ const archivePath = `dist/${archiveName}`;
 
 console.log(`Creating client archive: ${archiveName}`);
 
+// Move old archives to 00_ARCHIVES folder
+const archiveFolder = 'dist/00_ARCHIVES';
+try {
+    // Check if archive folder exists, if not create it
+    if (!existsSync(archiveFolder)) {
+        execSync(`mkdir -p "${archiveFolder}"`);
+    } else {
+        // Clear old archives from 00_ARCHIVES folder
+        execSync(`rm -f "${archiveFolder}"/*.zip`);
+        console.log('Cleared old archives from 00_ARCHIVES folder');
+    }
+    
+    // Move existing project archives to 00_ARCHIVES
+    const existingArchives = execSync('find dist/ -maxdepth 1 -name "wheel-dragon-project-*.zip"', { encoding: 'utf8' }).trim();
+    if (existingArchives) {
+        execSync(`mv ${existingArchives.split('\n').join(' ')} "${archiveFolder}/" 2>/dev/null || true`);
+        console.log('Moved old project archives to 00_ARCHIVES');
+    }
+} catch (error) {
+    console.log('No old archives to move or error moving archives');
+}
+
 // Backup original files
 const gitignoreOriginal = readFileSync('.gitignore', 'utf-8');
 const packageOriginal = readFileSync('package.json', 'utf-8');
@@ -54,10 +76,12 @@ try {
         '*.zip',           // existing archives
         '.env*',           // all environment files
         'node_modules/*',  // dependencies
+        'dist/*',         // build files (client can rebuild)
         '.git/*',         // git history
         '.vscode/*',      // editor settings
         '.idea/*',        // IDE settings
         'CLAUDE.md',      // private instructions
+        '.claude/*',      // claude folder
         'scripts/*',      // archive scripts
         'pglite-debug.log', // debug logs
         '*.log',          // all log files
